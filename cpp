@@ -3,10 +3,11 @@ using namespace std;
 
 int main()
 {
-	string definitions[]; //Array of defintions
 	string wordSearch; //Word to be searched
 
-	cin>> "Insert Word: ">>wordSearch>>endl; //Asks user for their word search
+	cout<<"Insert Word: ";
+	cin>>wordSearch; //Asks user for their word search
+	cout<<"The word you are looking is: "<<wordSearch<<endl;
 
 //Call for function to validate input
 //Call for function to count for how many searches came up before finding word of interest
