@@ -3,8 +3,8 @@ using namespace std;
 
 int main()
 {
-	char definitions[]; //Array of defintions
-	char wordSearch; //Word to be searched
+	string definitions[]; //Array of defintions
+	string wordSearch; //Word to be searched
 
 	cin>> "Insert Word: ">>wordSearch>>endl; //Asks user for their word search
 
