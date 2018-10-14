@@ -1,0 +1,90 @@
+#include<fstream>
+#include<istream>
+#include<iostream>
+#include <cstdlib>
+#include<ctime>
+using namespace std;
+
+int file_size (string FName)
+{
+    int size=0;
+    string line;
+    ifstream myfile(FName);
+
+    while (getline(myfile, line))
+        ++size;
+    myfile.close();
+    return size;
+}
+
+
+int binarySearch(string FName, string words[], string value)
+{
+    int first = 0,                              // First array element
+        last = file_size (FName) -1,    // Last array element
+        mid,                                // Mid point of search
+        position = -1;                          // Position of search value
+    bool found = false;                         //initiate bool found
+
+    while (!found && first <= last)
+    {
+        cout<<first<<" "<<words[first]<<endl<<last<<" "<<words[last]<<endl<<endl;
+
+        mid = (first + last) / 2;     // Calculate mid point
+        if (words[mid] == value)      // If value is found at mid
+        {
+            found = true;
+            position = mid;
+        }
+        else if (words[mid] > value)  // If value is in lower half
+            last = mid - 1;
+        else
+            first = mid + 1;           // If value is in upper half
+    }
+    return position;
+}
+
+
+int main ()
+{
+	string dict;
+	cout<<"Select dictionary name: ";
+	cin>>dict;
+    string array[file_size(dict)]; // creates array to hold names
+
+   	int counter=0; 
+
+    string line; //this will contain the data read from the file
+    ifstream myfile (dict); //opening the file.
+    if (myfile.is_open()) //if the file is open
+    {
+        while (! myfile.eof() ) //while the end of file is NOT reached
+        {
+            getline (myfile,line); //get one line from the file
+            array[counter] = line;
+            cout << array[counter]<< endl; //and output it
+            counter++;
+        }
+        myfile.close(); //closing the file
+    }
+    else cout << "Unable to open file"; //if the file is not open output
+
+    string SValue;
+    cout<<"Word Search: ";
+    cin>> SValue;
+
+    int result;
+    result=binarySearch (dict,array,SValue);
+    if (result == -1)
+    {
+        cout << "The Word does not exist in the dictionary."<<endl;
+    }
+    else
+    {
+        // Otherwise word exist in array
+        cout << "The word exists in this dictionary"<<endl;
+    }
+
+   return 0;
+
+}
